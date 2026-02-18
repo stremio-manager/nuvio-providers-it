@@ -564,14 +564,8 @@ async function getStreams(id, type, season, episode, showInfo) {
                                            title: 'Watch',
                                            url: extracted.url,
                                            headers: extracted.headers,
-                                           behaviorHints: {
-                                               notWebReady: true,
-                                               proxyHeaders: {
-                                                   request: extracted.headers
-                                               }
-                                           },
                                            quality: 'auto',
-                                           type: 'url'
+                                           type: 'direct'
                                        });
                                    }
                                 }
@@ -584,7 +578,7 @@ async function getStreams(id, type, season, episode, showInfo) {
                                            url: extracted.url,
                                            headers: extracted.headers,
                                            quality: 'auto',
-                                           type: 'url'
+                                           type: 'direct'
                                        });
                                     }
                                 }
@@ -596,7 +590,7 @@ async function getStreams(id, type, season, episode, showInfo) {
                                            title: 'Watch',
                                            url: extracted,
                                            quality: 'auto',
-                                           type: 'url'
+                                           type: 'direct'
                                        });
                                     }
                                 }
@@ -608,7 +602,7 @@ async function getStreams(id, type, season, episode, showInfo) {
                                            title: 'Watch',
                                            url: extracted,
                                            quality: 'auto',
-                                           type: 'url'
+                                           type: 'direct'
                                        });
                                     }
                                 }
@@ -620,7 +614,7 @@ async function getStreams(id, type, season, episode, showInfo) {
                                            title: 'Watch',
                                            url: extracted,
                                            quality: 'auto',
-                                           type: 'url'
+                                           type: 'direct'
                                        });
                                     }
                                 }
@@ -632,7 +626,7 @@ async function getStreams(id, type, season, episode, showInfo) {
                                            title: 'Watch',
                                            url: extracted,
                                            quality: 'auto',
-                                           type: 'url'
+                                           type: 'direct'
                                        });
                                     }
                                 }
@@ -644,7 +638,7 @@ async function getStreams(id, type, season, episode, showInfo) {
                                            title: 'Watch',
                                            url: extracted,
                                            quality: 'auto',
-                                           type: 'url'
+                                           type: 'direct'
                                        });
                                     }
                                 }
