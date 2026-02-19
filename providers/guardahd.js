@@ -24,7 +24,8 @@ const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, l
 function getImdbId(tmdbId, type) {
   return __async(this, null, function* () {
     try {
-      const endpoint = type === "movie" ? "movie" : "tv";
+      const normalizedType = String(type).toLowerCase();
+    const endpoint = normalizedType === "movie" ? "movie" : "tv";
       const url = `https://api.themoviedb.org/3/${endpoint}/${tmdbId}?api_key=${TMDB_API_KEY}`;
       const response = yield fetch(url);
       if (!response.ok) return null;
@@ -223,9 +224,10 @@ function getStreams(id, type, season, episode) {
       else return [];
     }
     let url;
-    if (type === "movie") {
+    const normalizedType = String(type).toLowerCase();
+    if (normalizedType === "movie") {
       url = `${BASE_URL}/set-movie-a/${imdbId}`;
-    } else if (type === "tv") {
+    } else if (normalizedType === "tv") {
       url = `${BASE_URL}/set-tv-a/${imdbId}/${season}/${episode}`;
     } else {
       return [];

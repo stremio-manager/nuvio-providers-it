@@ -235,7 +235,7 @@ function getTmdbIdFromImdb(imdbId, type) {
 }
 function getStreams(id, type, season, episode) {
   return __async(this, null, function* () {
-    if (type === "movie") return [];
+    if (String(type).toLowerCase() === "movie") return [];
     try {
       let tmdbId = id;
       if (id.toString().startsWith("tt")) {

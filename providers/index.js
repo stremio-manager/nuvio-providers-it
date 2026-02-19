@@ -37,7 +37,7 @@ function getStreams(id, type, season, episode) {
         guardahd.getStreams(id, normalizedType, season, episode).then((streams2) => ({ provider: "GuardaHD", streams: streams2, status: "fulfilled" })).catch((error) => ({ provider: "GuardaHD", error, status: "rejected" }))
       );
     }
-    if (normalizedType === "tv" || normalizedType === "series") {
+    if (normalizedType === "tv") {
       promises.push(
         eurostreaming.getStreams(id, normalizedType, season, episode).then((streams2) => ({ provider: "EuroStreaming", streams: streams2, status: "fulfilled" })).catch((error) => ({ provider: "EuroStreaming", error, status: "rejected" }))
       );

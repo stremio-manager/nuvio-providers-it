@@ -34,16 +34,17 @@ const COMMON_HEADERS = {
 };
 function getTmdbId(imdbId, type) {
   return __async(this, null, function* () {
-    const endpoint = type === "movie" ? "movie" : "tv";
+    const normalizedType = String(type).toLowerCase();
+    const endpoint = normalizedType === "movie" ? "movie" : "tv";
     const findUrl = `https://api.themoviedb.org/3/find/${imdbId}?api_key=${TMDB_API_KEY}&external_source=imdb_id`;
     try {
       const response = yield fetch(findUrl);
       if (!response.ok) return null;
       const data = yield response.json();
       if (!data) return null;
-      if (type === "movie" && data.movie_results && data.movie_results.length > 0) {
+      if (normalizedType === "movie" && data.movie_results && data.movie_results.length > 0) {
         return data.movie_results[0].id.toString();
-      } else if ((type === "tv" || type === "series") && data.tv_results && data.tv_results.length > 0) {
+      } else if (normalizedType === "tv" && data.tv_results && data.tv_results.length > 0) {
         return data.tv_results[0].id.toString();
       }
       return null;
@@ -54,28 +55,29 @@ function getTmdbId(imdbId, type) {
   });
 }
 function getStreams(id, type, season, episode) {
-  return __async(this, null, function* () {
-    let tmdbId = id.toString();
+    return __async(this, null, function* () {
+      const normalizedType = String(type).toLowerCase();
+      let tmdbId = id.toString();
     if (tmdbId.startsWith("tmdb:")) {
       tmdbId = tmdbId.replace("tmdb:", "");
     }
     if (tmdbId.startsWith("tt")) {
-      const convertedId = yield getTmdbId(tmdbId, type);
-      if (convertedId) {
-        console.log(`[StreamingCommunity] Converted ${id} to TMDB ID: ${convertedId}`);
-        tmdbId = convertedId;
-      } else {
-        console.warn(`[StreamingCommunity] Could not convert IMDb ID ${id} to TMDB ID.`);
+        const convertedId = yield getTmdbId(tmdbId, normalizedType);
+        if (convertedId) {
+          console.log(`[StreamingCommunity] Converted ${id} to TMDB ID: ${convertedId}`);
+          tmdbId = convertedId;
+        } else {
+          console.warn(`[StreamingCommunity] Could not convert IMDb ID ${id} to TMDB ID.`);
+        }
       }
-    }
-    let url;
-    if (type === "movie") {
-      url = `${BASE_URL}/movie/${tmdbId}`;
-    } else if (type === "tv" || type === "series") {
-      url = `${BASE_URL}/tv/${tmdbId}/${season}/${episode}`;
-    } else {
-      return [];
-    }
+      let url;
+      if (normalizedType === "movie") {
+        url = `${BASE_URL}/movie/${tmdbId}`;
+      } else if (normalizedType === "tv") {
+        url = `${BASE_URL}/tv/${tmdbId}/${season}/${episode}`;
+      } else {
+        return [];
+      }
     try {
       console.log(`[StreamingCommunity] Fetching page: ${url}`);
       const response = yield fetch(url, {
