@@ -356,8 +356,12 @@ function getStreams(id, type, season, episode) {
             const extracted = yield extractDropLoad(link);
             if (extracted && extracted.url) {
             let quality = "HD";
-            if (extracted.url.includes("1080")) quality = "1080p";
-            else if (extracted.url.includes("720")) quality = "720p";
+            const lowerUrl = extracted.url.toLowerCase();
+            if (lowerUrl.includes("4k") || lowerUrl.includes("2160")) quality = "4K";
+            else if (lowerUrl.includes("1080") || lowerUrl.includes("fhd")) quality = "1080p";
+            else if (lowerUrl.includes("720") || lowerUrl.includes("hd")) quality = "720p";
+            else if (lowerUrl.includes("480") || lowerUrl.includes("sd")) quality = "480p";
+            else if (lowerUrl.includes("360")) quality = "360p";
             
             const normalizedQuality = getQualityFromName(quality);
 
@@ -376,8 +380,12 @@ function getStreams(id, type, season, episode) {
           playerName = "SuperVideo";
           if (streamUrl) {
             let quality = "HD";
-            if (streamUrl.includes("1080")) quality = "1080p";
-            else if (streamUrl.includes("720")) quality = "720p";
+            const lowerUrl = streamUrl.toLowerCase();
+            if (lowerUrl.includes("4k") || lowerUrl.includes("2160")) quality = "4K";
+            else if (lowerUrl.includes("1080") || lowerUrl.includes("fhd")) quality = "1080p";
+            else if (lowerUrl.includes("720") || lowerUrl.includes("hd")) quality = "720p";
+            else if (lowerUrl.includes("480") || lowerUrl.includes("sd")) quality = "480p";
+            else if (lowerUrl.includes("360")) quality = "360p";
             
             const normalizedQuality = getQualityFromName(quality);
 
@@ -394,8 +402,12 @@ function getStreams(id, type, season, episode) {
           const extracted = yield extractMixDrop(link);
           if (extracted && extracted.url) {
             let quality = "HD";
-            if (extracted.url.includes("1080")) quality = "1080p";
-            else if (extracted.url.includes("720")) quality = "720p";
+            const lowerUrl = extracted.url.toLowerCase();
+            if (lowerUrl.includes("4k") || lowerUrl.includes("2160")) quality = "4K";
+            else if (lowerUrl.includes("1080") || lowerUrl.includes("fhd")) quality = "1080p";
+            else if (lowerUrl.includes("720") || lowerUrl.includes("hd")) quality = "720p";
+            else if (lowerUrl.includes("480") || lowerUrl.includes("sd")) quality = "480p";
+            else if (lowerUrl.includes("360")) quality = "360p";
             
             const normalizedQuality = getQualityFromName(quality);
 
