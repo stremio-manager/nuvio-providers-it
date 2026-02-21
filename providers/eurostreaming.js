@@ -230,6 +230,7 @@ function extractMixDrop(url) {
         }
       });
       if (!response.ok) return null;
+      const cookies = response.headers.get("set-cookie");
       const html = yield response.text();
       const packedRegex = /eval\(function\(p,a,c,k,e,d\)\{.*?\}\('(.*?)',(\d+),(\d+),'(.*?)'\.split\('\|'\),(\d+),(\{\})\)\)/;
       const match = packedRegex.exec(html);
@@ -251,7 +252,8 @@ function extractMixDrop(url) {
             headers: {
               "User-Agent": USER_AGENT,
               "Referer": referer,
-              "Origin": origin
+              "Origin": origin,
+              "Cookie": cookies || ""
             }
           };
         }
