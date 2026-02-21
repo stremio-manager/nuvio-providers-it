@@ -159,10 +159,9 @@ function extractMixDrop(url) {
           return {
             url: streamUrl,
             headers: {
-              "User-Agent": USER_AGENT,
-              "Referer": referer,
-              "Origin": origin,
-              "Cookie": cookies || ""
+              'User-Agent': USER_AGENT,
+              'Referer': 'https://m1xdrop.net/',
+              'Origin': 'https://m1xdrop.net'
             }
           };
         }

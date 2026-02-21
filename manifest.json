@@ -1,11 +1,11 @@
 {
   "name": "Nuvio IT Providers",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "scrapers": [
     {
       "id": "nuvio-it-providers-eurostreaming",
       "name": "EuroStreaming",
-      "version": "1.0.17",
+      "version": "1.0.20",
       "description": "TV Series from EuroStreaming",
       "resources": ["stream"],
       "contentLanguage": ["it"],
@@ -18,7 +18,7 @@
     {
       "id": "nuvio-it-providers-guardahd",
       "name": "GuardaHD",
-      "version": "1.0.9",
+      "version": "1.0.12",
       "description": "Movies from GuardaHD",
       "resources": ["stream"],
       "contentLanguage": ["it"],
@@ -31,7 +31,7 @@
     {
       "id": "nuvio-it-providers-guardaserie",
       "name": "Guardaserie",
-      "version": "1.0.11",
+      "version": "1.0.14",
       "description": "TV Series from Guardaserie",
       "resources": ["stream"],
       "contentLanguage": ["it"],
