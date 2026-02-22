@@ -584,11 +584,21 @@ function getStreams(id, type, season, episode) {
                 else if (infoData.grabber.includes("720p")) quality = "720p";
                 else if (infoData.grabber.includes("480p")) quality = "480p";
                 else if (infoData.grabber.includes("360p")) quality = "360p";
+                const serverName = isDub ? "AnimeWorld (ITA)" : "AnimeWorld (SUB ITA)";
+                let displayTitle = `${match.title} - Ep ${episode}`;
+                if (isDub && !displayTitle.includes("(ITA)")) displayTitle += " (ITA)";
+                if (!isDub && !displayTitle.includes("(SUB ITA)")) displayTitle += " (SUB ITA)";
                 results.push({
-                  server: "AnimeWorld " + (isDub ? "(ITA)" : "(SUB ITA)"),
+                  name: serverName,
+                  title: displayTitle,
+                  server: serverName,
                   url: infoData.grabber,
                   quality,
-                  isM3U8: infoData.grabber.includes(".m3u8")
+                  isM3U8: infoData.grabber.includes(".m3u8"),
+                  headers: {
+                    "User-Agent": USER_AGENT,
+                    "Referer": animeUrl
+                  }
                 });
               }
             }

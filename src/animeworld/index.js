@@ -794,11 +794,31 @@ async function getStreams(id, type, season, episode) {
                             else if (infoData.grabber.includes("480p")) quality = "480p";
                             else if (infoData.grabber.includes("360p")) quality = "360p";
 
+                            // The 'server' field is often displayed as the stream name.
+                            // If we just use "AnimeWorld (ITA)", it might be grouped under "AnimeWorld" in the UI.
+                            // We should use a descriptive name.
+                            // Also, if infoData contains server name (e.g. "AnimeWorld Server", "Alternative"), we could use it.
+                            // But infoData usually just has 'grabber'.
+                            
+                            // Let's create distinct server names to ensure they appear correctly
+                            const serverName = isDub ? "AnimeWorld (ITA)" : "AnimeWorld (SUB ITA)";
+                            
+                            // Avoid duplicating (ITA) if already in title
+                            let displayTitle = `${match.title} - Ep ${episode}`;
+                            if (isDub && !displayTitle.includes("(ITA)")) displayTitle += " (ITA)";
+                            if (!isDub && !displayTitle.includes("(SUB ITA)")) displayTitle += " (SUB ITA)";
+
                             results.push({
-                                server: "AnimeWorld " + (isDub ? "(ITA)" : "(SUB ITA)"),
+                                name: serverName,
+                                title: displayTitle,
+                                server: serverName,
                                 url: infoData.grabber,
                                 quality: quality,
-                                isM3U8: infoData.grabber.includes('.m3u8')
+                                isM3U8: infoData.grabber.includes('.m3u8'),
+                                headers: {
+                                    "User-Agent": USER_AGENT,
+                                    "Referer": animeUrl
+                                }
                             });
                         }
                     }
